@@ -32,7 +32,7 @@ function Spot(x, y) {
   this.g = 0;
   this.h = 0;
   this.isWall = false;
-  if(random(1) < 0.25) {
+  if(random(1) < 0.15) {
     this.isWall = true;
   }
   this.previous = undefined;
