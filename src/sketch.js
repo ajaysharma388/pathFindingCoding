@@ -114,19 +114,27 @@ function draw() {
       var nbr = neighbours[i];
       if(!closeSet.includes(nbr) && !nbr.isWall) {
         var tmpG = current.g + 1;
-        if(!openSet.includes(nbr) && nbr.g > tmpG) {
+        var newPath = false;
+        if(openSet.includes(nbr)) {
+          if(nbr.g > tmpG) {
             nbr.g = tmpG;
+            newPath = true;
+          }
         } else {
           nbr.g = tmpG;
           openSet.push(nbr);
+          newPath = true;
         }
-        nbr.h = heiuristics(nbr, end);
-        nbr.f = nbr.g + nbr.h;
-        nbr.previous = current;
+        if(newPath) {
+          nbr.h = heiuristics(nbr, end);
+          nbr.f = nbr.g + nbr.h;
+          nbr.previous = current;
+        }
       }
     }
   } else {
     console.log("No Solution!");
+    noLoop();
     return;
   }
   background(0);
