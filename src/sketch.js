@@ -1,5 +1,5 @@
-var cols = 50;
-var rows = 50;
+var cols = 75;
+var rows = 75;
 var grid = new Array(cols);
 var width = 750;
 var height = 750;
@@ -41,9 +41,9 @@ function Spot(x, y) {
     fill(colr);
     if(this.isWall) {
       fill(0);
+      noStroke();
+      ellipse(this.x*w + w/2, this.y*h + h/2, w-1, h-1);
     }
-    stroke(0);
-    rect(this.x*w, this.y*h, w-1, h-1);
   }
   this.addNeighbours = function (grid) {
     for(var i = this.x - 1; i <= this.x+1; ++i) {
@@ -137,8 +137,7 @@ function draw() {
     noLoop();
     return;
   }
-  background(0);
-  ellipse(200, 200, 50, 50);
+  background(255);
   // Printing the cells of the grid.
   for(var i = 0; i < cols; ++i) {
     for(var j = 0; j < rows; ++j) {
@@ -162,13 +161,14 @@ function draw() {
     path.push(tmp);
     tmp = tmp.previous;
   }
+
+  noFill();
+  stroke(255, 0, 255);
+  strokeWeight(w / 2);
+  beginShape();
   for(var j = 0; j < path.length; ++j) {
-    path[j].show(color(0, 0, 154));
+    vertex(path[j].x * w + w / 2, path[j].y * h + h / 2);
   }
+  endShape();
+
 }
-
-
-
-          // [X-1][Y-1]   [X-1] [Y]   [X-1][Y+1]
-          // [X][Y-1]     [X] [Y]     [X][Y+1]
-          // [X+1][Y-1]   [X+1] [Y]   [X+1][Y+1]
